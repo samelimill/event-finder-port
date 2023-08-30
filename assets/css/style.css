@@ -1,0 +1,11 @@
+* { 
+    background-color: #8b936c;
+    color: white;
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+h1 {
+    font-size: larger;
+    color: #746c93;
+    text-shadow: 2px 2px 4px #000000;
+}
