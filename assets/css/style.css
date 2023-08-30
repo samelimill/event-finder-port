@@ -15,3 +15,7 @@ h1 {
 #submit-button {
     background-color: #8b936c;
 }
+
+#search-form {
+    height: 500px;
+}
