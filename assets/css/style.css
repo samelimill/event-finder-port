@@ -33,3 +33,7 @@ h1 {
 .uk-align-center {
     margin-top: 50px;
 }
+
+.uk-search-field {
+    width: 300px;
+}
