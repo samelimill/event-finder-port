@@ -17,31 +17,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
     <header class="uk-align-center">
-        <h1>Super Cool Event Planner</h1>
+        <h1>Events Near Me Today</h1>
     </header>
 
     <div id="input-form-container">
         <form class="uk-search" data-uk-search>
-            <input class="uk-search-field" type="search" placeholder="City">
+            <input class="uk-search-field" type="search" placeholder="Where are you located?">
         </form>
-
-        <input type="date" id="start" name="trip-start" value="08-31-2023" min="08-31-2023" max="08-31-2100" />
 
         <button id="submit-button">Search</button>
     </div>
 
-    <div id="results-container">
+   <div id="results-container">
         <div id="event-container">
             <!--populate via js with event attractions, classification, venue, start time -->
         </div>
-        <div id="hotel-container">
-            <!--populate via js with hotels in zip or city-->
+        <div id="weather-container">
+            <!--populate via js with weather based on city from user input-->
         </div>
-        
     </div>
+
     <script src="assets/js/script.js"></script>
+    
 </body>
 
 </html>
