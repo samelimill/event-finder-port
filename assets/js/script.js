@@ -2,12 +2,15 @@ var searchBar = document.querySelector('.uk-search-field');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var eventsList = document.createElement('ul');
+var backBtn = document.createElement('button');
+backBtn.textContent = 'Back to list';
 
 singleEvent = document.createElement('ul');
 
 var eventName = document.createElement('h4');
 var eventImg = document.createElement('img');
 eventLink = document.createElement('a');
+//to-do: add classification input (concerts, sports, arts-theatre, family)
 
 
 submitBtn.addEventListener('click', function getInput(e) {
@@ -15,8 +18,9 @@ submitBtn.addEventListener('click', function getInput(e) {
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
     var city = search.substr(0, search.length-4);
+    //to-do: save to local storage
     getEvents(city, state);
-    //getWeather(search); //wrap weather fetch in a function?
+    //to do: wrap weather fetch in a function so we can apply search variable
 })
 
 
@@ -61,18 +65,23 @@ function displayEvents(data) {
 eventsList.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         eventsList.innerHTML = '';
+
         var expanded = e.target;
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
         eventCon.appendChild(singleEvent);
+        singleEvent.appendChild(backBtn);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
         singleEvent.appendChild(eventLink);
     }
+})
 
-    
+backBtn.addEventListener('click', function backToList {
+    eventCon.removeChild(singleEvent);
+    //to-do: pull search from local storage, pass through getEvents function
 
 })
 
