@@ -79,7 +79,7 @@ eventsList.addEventListener('click', function furtherDetails(e) {
     }
 })
 
-backBtn.addEventListener('click', function backToList {
+backBtn.addEventListener('click', function backToList () {
     eventCon.removeChild(singleEvent);
     //to-do: pull search from local storage, pass through getEvents function
 
@@ -93,8 +93,8 @@ fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+se
     })
     .then(function (data) {
         console.log(data)
-        var sunset = data.forecast.forcastDay[0].astro.sunset;
-        var eveningTemp = data.forecast.forecastDay[0].hour[21].temp_f;
-        var eveningCondition = data.forecast.forecastDay[0].hour[21].condition.text;
-        var eveningRainChance = data.forecast.forecastDay[0].hour[21].chance_of_rain;
+        var sunset = data.forecast.forecastday[0].astro.sunset;
+        var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
+        var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
+        var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
     });
