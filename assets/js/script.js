@@ -7,7 +7,7 @@ singleEvent = document.createElement('ul');
 
 var eventName = document.createElement('h4');
 var eventImg = document.createElement('img');
-eventLink = document.createElement('p');
+eventLink = document.createElement('a');
 
 
 submitBtn.addEventListener('click', function getInput(e) {
@@ -64,7 +64,8 @@ eventsList.addEventListener('click', function furtherDetails(e) {
         var expanded = e.target;
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
-        eventLink.textContent = expanded.getAttribute('data-link');
+        eventLink.href = expanded.getAttribute('data-link');
+        eventLink.textContent = 'View on Ticketmaster';
         eventCon.appendChild(singleEvent);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
