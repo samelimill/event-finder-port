@@ -2,7 +2,12 @@ var searchBar = document.querySelector('.uk-search-field');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var eventsList = document.createElement('ul');
-eventCon.appendChild(eventsList);
+
+singleEvent = document.createElement('ul');
+
+var eventName = document.createElement('h4');
+var eventImg = document.createElement('img');
+eventLink = document.createElement('p');
 
 
 submitBtn.addEventListener('click', function getInput(e) {
@@ -38,14 +43,35 @@ function displayEvents(data) {
         var AmOrPm = hour >= 12 ? 'pm' : 'am'; //via medium.com, how to convert 24 hours format to 12 hours
         hour = (hour % 12) || 12; //via medium.com
         var finalTime = hour + ':' + minutes + AmOrPm;
+        var id = data._embedded.events[i].id;
+        var image = data._embedded.events[i].images[2].url;
+        var link = data._embedded.events[i].url;
         
         eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
-        eventCon.appendChild(eventEl);
+        eventEl.setAttribute('data-id', id);
+        eventEl.setAttribute('data-date', date);
+        eventEl.setAttribute('data-time', finalTime);
+        eventEl.setAttribute('data-img', image);
+        eventEl.setAttribute('data-link', link);
+        eventCon.appendChild(eventsList);
+        eventsList.appendChild(eventEl);
     }
 }
 
-eventCon.addEventListener('click', function furtherDetails(e) {
-    var expanded = e.target;
+eventsList.addEventListener('click', function furtherDetails(e) {
+    if(e.target.nodeName = 'li') {
+        eventsList.innerHTML = '';
+        var expanded = e.target;
+        eventName.textContent = expanded.innerHTML;
+        eventImg.src = expanded.getAttribute('data-img');
+        eventLink.textContent = expanded.getAttribute('data-link');
+        eventCon.appendChild(singleEvent);
+        singleEvent.appendChild(eventName);
+        singleEvent.appendChild(eventImg);
+        singleEvent.appendChild(eventLink);
+    }
+
+    
 
 })
 
