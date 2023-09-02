@@ -6,7 +6,7 @@
 html { 
     background-image: url("https://wallpapercave.com/wp/wp2349475.jpg");
     height: 100%;
-    background-repeat: no-repeat;
+    background-size: cover;
     background-color: #8b936c;
     font-family: 'Lexend Deca', sans-serif;
     text-align: center;
