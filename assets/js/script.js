@@ -25,7 +25,7 @@ submitBtn.addEventListener('click', function getInput(e) {
     }
     searchHistory = localStorage.setItem('saveSearch', JSON.stringify(prevSearch));
     getEvents(city, state);
-    //to do: wrap weather fetch in a function so we can apply search variable
+    getWeather(search);
 })
 
 
@@ -43,6 +43,8 @@ function getEvents(city, state) {
 }
 
 function displayEvents(data) {
+
+    if(data.page.totalElements > 0) {
     for(i = 0; i < data._embedded.events.length; i++) {
         eventEl = document.createElement('li');
         var date = data._embedded.events[i].dates.start.localDate;
@@ -64,6 +66,12 @@ function displayEvents(data) {
         eventEl.setAttribute('data-link', link);
         eventCon.appendChild(eventsList);
         eventsList.appendChild(eventEl);
+    } 
+    } else { 
+        messageEl = document.createElement('p');
+        messageEl.textContent = 'Sorry, no events found';
+        eventCon.appendChild(eventsList);
+        eventsList.appendChild(messageEl);
     }
 }
 
@@ -92,16 +100,18 @@ backBtn.addEventListener('click', function backToList () {
     getEvents(city, state);
 })
 
-var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
-var searchVal = 'Portland, OR';
-fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+searchVal+'&days=0')
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data)
-        var sunset = data.forecast.forecastday[0].astro.sunset;
-        var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
-        var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
-        var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
-    });
+function getWeather(search) {
+    var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
+    
+    fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            var sunset = data.forecast.forecastday[0].astro.sunset;
+            var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
+            var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
+            var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
+        });
+}
