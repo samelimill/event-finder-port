@@ -4,21 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <!--UIkit link-->
+    <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit-icons.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
-    <h1>Super Cool Event Planner</h1>
-    <div id="input-form-container">
+    <header class="uk-align-center uk-heading-line">
+        <h1>Events Near Me Today</h1>
+    </header>
 
+    <div class="input-form-container uk-card-search uk-align-center">
+        <form class="uk-search">
+            <input class="uk-search-field" type="search" placeholder="Where are you located?">
+        </form>
+
+        <button id="submit-button">Search</button>
     </div>
-    <div id="event-container">
 
+   <div id="results-container">
+        <div id="event-container">
+            <!-- Populate via JavaScript with event attractions, classification, venue, start time -->
+        </div>
+        <div id="weather-container">
+            <!-- Populate via JavaScript with weather based on city from user input -->
+        </div>
     </div>
-    <div id="hotel-container">
 
-    </div>
-
+    <!-- Link the DayJS library -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
     <script src="assets/js/script.js"></script>
+    
 </body>
+</html>
