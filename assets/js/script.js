@@ -33,40 +33,44 @@ function getEvents(city, state) {
     var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
     .then(function(response) {
-        if(response.ok) {
+        if(response.status === 200) {
             response.json().then(function(data){
                 console.log(data);
                 displayEvents(data);
             })
+        } else { 
+            var errorEl = document.createElement('p')
+            errorEl.textContent = 'Failed to get results. Please check search format.';
+            eventCon.appendChild(eventsList);
+            eventsList.appendChild(errorEl);
         }
     });
 }
 
 function displayEvents(data) {
-
     if(data.page.totalElements > 0) {
-    for(i = 0; i < data._embedded.events.length; i++) {
-        eventEl = document.createElement('li');
-        var date = data._embedded.events[i].dates.start.localDate;
-        var localTime = data._embedded.events[i].dates.start.localTime;
-        var hour = localTime.substr(0, 2);
-        var minutes = localTime.substr(3, 2);
-        var AmOrPm = hour >= 12 ? 'pm' : 'am'; //via medium.com, how to convert 24 hours format to 12 hours
-        hour = (hour % 12) || 12; //via medium.com
-        var finalTime = hour + ':' + minutes + AmOrPm;
-        var id = data._embedded.events[i].id;
-        var image = data._embedded.events[i].images[2].url;
-        var link = data._embedded.events[i].url;
+        for(i = 0; i < data._embedded.events.length; i++) {
+            eventEl = document.createElement('li');
+            var date = data._embedded.events[i].dates.start.localDate;
+            var localTime = data._embedded.events[i].dates.start.localTime;
+            var hour = localTime.substr(0, 2);
+            var minutes = localTime.substr(3, 2);
+            var AmOrPm = hour >= 12 ? 'pm' : 'am'; //via medium.com, how to convert 24 hours format to 12 hours
+            hour = (hour % 12) || 12; //via medium.com
+            var finalTime = hour + ':' + minutes + AmOrPm;
+            var id = data._embedded.events[i].id;
+            var image = data._embedded.events[i].images[2].url;
+            var link = data._embedded.events[i].url;
         
-        eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
-        eventEl.setAttribute('data-id', id);
-        eventEl.setAttribute('data-date', date);
-        eventEl.setAttribute('data-time', finalTime);
-        eventEl.setAttribute('data-img', image);
-        eventEl.setAttribute('data-link', link);
-        eventCon.appendChild(eventsList);
-        eventsList.appendChild(eventEl);
-    } 
+            eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
+            eventEl.setAttribute('data-id', id);
+            eventEl.setAttribute('data-date', date);
+            eventEl.setAttribute('data-time', finalTime);
+            eventEl.setAttribute('data-img', image);
+            eventEl.setAttribute('data-link', link);
+            eventCon.appendChild(eventsList);
+            eventsList.appendChild(eventEl);
+        } 
     } else { 
         messageEl = document.createElement('p');
         messageEl.textContent = 'Sorry, no events found';
