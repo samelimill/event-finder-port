@@ -14,11 +14,16 @@ eventLink = document.createElement('a');
 
 
 submitBtn.addEventListener('click', function getInput(e) {
+    eventsList.innerHTML = '';
     e.preventDefault;
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
     var city = search.substr(0, search.length-4);
-    //to-do: save to local storage
+    var prevSearch = {
+        'city': city,
+        'state': state
+    }
+    searchHistory = localStorage.setItem('saveSearch', JSON.stringify(prevSearch));
     getEvents(city, state);
     //to do: wrap weather fetch in a function so we can apply search variable
 })
@@ -81,8 +86,10 @@ eventsList.addEventListener('click', function furtherDetails(e) {
 
 backBtn.addEventListener('click', function backToList () {
     eventCon.removeChild(singleEvent);
-    //to-do: pull search from local storage, pass through getEvents function
-
+    var searchHisList = JSON.parse(localStorage.getItem('saveSearch'));
+    var city = searchHisList.city;
+    var state = searchHisList.state;
+    getEvents(city, state);
 })
 
 var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
