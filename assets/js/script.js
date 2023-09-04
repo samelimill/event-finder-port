@@ -1,4 +1,4 @@
-var searchBar = document.querySelector('.uk-search-field');
+var searchBar = document.querySelector('.uk-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var eventsList = document.createElement('ul');
