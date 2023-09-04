@@ -32,9 +32,8 @@ h1 {
 }
 
 #submit-button {
-    width: 100px;
-    background-color: rgba(35, 31, 255, 0.8);
-    color: white;
+    /* background-color: rgba(35, 31, 255, 0.8);
+    color: white; */
     box-shadow: 2px 2px 4px #3b3b3b;
 }
 
@@ -42,22 +41,28 @@ h1 {
     margin-top: 50px;
 }
 
-.uk-search-field {
+.uk-input {
     width: 300px;
     box-shadow: 2px 2px 4px #3b3b3b;
 }
 
-li:hover {
+a:hover, li:hover {
     color: rgb(0, 199, 43);
     text-shadow: 2px 2px 4px #3b3b3b;
 }
 
-li {
+li, a {
     color: white;
     list-style-type: none;
     cursor: grab;
 }
 
-a {
-    cursor: grab;
+h4 {
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 2px 4px #3b3b3b;
+}
+
+img {
+    max-width: 80%;
 }
