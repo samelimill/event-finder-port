@@ -1,6 +1,7 @@
 var searchBar = document.querySelector('.uk-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
+var weatherCon = document.querySelector('#weather-container');
 var eventsList = document.createElement('ul');
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
@@ -117,5 +118,6 @@ function getWeather(search) {
             var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
             var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
             var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
+            weatherCon.innerHTML = '<ul><li><h3>This evening:</h3></li><li>'+eveningCondition+'</li><li>Sunset:'+sunset+'</li><li>Temperature:'+eveningTemp+'</li><li>Chance of Rain:'+eveningRainChance+'</li></ul>';
         });
 }
