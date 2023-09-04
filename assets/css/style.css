@@ -1,17 +1,20 @@
-*{
+* {
     text-align: center;
     font-size: 18px;
-}
-
-html { 
-    background-image: url("https://wallpapercave.com/wp/wp2349475.jpg");
-    height: 100%;
-    background-size: cover;
-    background-color: #8b936c;
     font-family: 'Lexend Deca', sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
+}
+
+html {
+    background-image: linear-gradient(to bottom,
+            rgba(110, 107, 255, 0.4),
+            rgba(198, 198, 255, 0.3)), url("https://wallpapercave.com/wp/wp2349475.jpg");
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #8b936c;
 }
 
 body {
@@ -21,22 +24,45 @@ body {
     flex-direction: column;
 }
 
-
 h1 {
     font-family: 'Lexend Deca', sans-serif;
     font-size: 100px;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    text-shadow: 3px 3px 4px #3b3b3b;
 }
 
 #submit-button {
-    background-color: #8b936c;
+    /* background-color: rgba(35, 31, 255, 0.8);
+    color: white; */
+    box-shadow: 2px 2px 4px #3b3b3b;
 }
 
 .uk-align-center {
     margin-top: 50px;
 }
 
-.uk-search-field {
+.uk-input {
     width: 300px;
+    box-shadow: 2px 2px 4px #3b3b3b;
+}
+
+a:hover, li:hover {
+    color: rgb(0, 199, 43);
+    text-shadow: 2px 2px 4px #3b3b3b;
+}
+
+li, a {
+    color: white;
+    list-style-type: none;
+    cursor: grab;
+}
+
+h4 {
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 2px 4px #3b3b3b;
+}
+
+img {
+    max-width: 80%;
 }
