@@ -1,4 +1,4 @@
-var searchBar = document.querySelector('.uk-input');
+var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
@@ -15,8 +15,8 @@ eventLink = document.createElement('a');
 
 
 submitBtn.addEventListener('click', function getInput(e) {
+    e.preventDefault();
     eventsList.innerHTML = '';
-    e.preventDefault;
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
     var city = search.substr(0, search.length-4);
@@ -36,6 +36,7 @@ function getEvents(city, state) {
     .then(function(response) {
         if(response.status === 200) {
             response.json().then(function(data){
+                console.log(response.status);
                 console.log(data);
                 displayEvents(data);
             })
