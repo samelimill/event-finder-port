@@ -87,7 +87,7 @@ function displayEvents(data) {
 }
 
 eventsList.addEventListener('click', function furtherDetails(e) {
-    console.log('click');
+    eventsList.innerHTML = '';
     if(e.target.nodeName = 'li') {
         eventCon.removeChild(listDiv);
 
