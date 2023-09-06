@@ -48,6 +48,7 @@ h1 {
 
 #event-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
