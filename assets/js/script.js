@@ -9,8 +9,7 @@ eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
 listDiv.appendChild(eventsList);
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
-var currentEvents = document.querySelector('#current-events');
-var futureEvents = document.querySelector('#future-events');
+
 singleEvent = document.createElement('ul');
 singleEvent.setAttribute('class', 'single-event');
 
@@ -55,6 +54,9 @@ function getEvents(city, state) {
     });
 }
 
+var currentEvents = document.querySelector('#current-events');
+var futureEvents = document.querySelector('#future-events');
+ 
 function displayEvents(data) {
     if(data.page.totalElements > 0) {
         for(i = 0; i < data._embedded.events.length; i++) {
@@ -76,8 +78,16 @@ function displayEvents(data) {
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
-            eventCon.appendChild(listDiv);
-            eventsList.appendChild(eventEl);
+
+            var today = dayjs().format('YYYY-MM-DD');
+            
+            console.log(eventEl);
+            if (date == today){
+                currentEvents.appendChild(eventEl);
+            } else if (date > today){
+                document.querySelector('#coming-soon-text').textContent = 'Coming Soon . . .'
+                futureEvents.appendChild(eventEl);
+            }
         } 
     } else { 
         messageEl = document.createElement('p');

@@ -7,23 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     
     <link rel="stylesheet" href="assets/css/reset.css" />
-    
-    <link rel="stylesheet" href="assets/css/reset.css" />
 
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit-icons.min.js"></script>
-    
     
     <!--G fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/css/uikit.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/css/uikit.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
-    <!-- UIkit CSS -->
-    
     <!-- UIkit CSS -->
     
 </head>
@@ -44,23 +38,12 @@
     </section>
 <!-- 1 column-->
     <section class ="uk-width-1-1 event-results" id="results-container">
-<!-- 2 columns-->
-    <section class="uk-grid" id="input-form-container">
-        <form class="uk-width-1-2 uk-search uk-card-search form-weather">
-            <input class="uk-input" id='search-input' type="search" placeholder="Portland, OR">
-            <button class="uk-button uk-button-primary" id="submit-button">Search</button>
-        </form>
-        <div class="uk-width-1-2 uk-card-search form-weather" id="weather-container">
-            <!--populate via js with weather based on city from user input-->
-        </div>
-    </section>
-<!-- 1 column-->
-    <section class ="uk-width-1-1 event-results" id="results-container">
         <div id="event-container">
-            
+            <ul id="current-events"></ul>
+            <p id="coming-soon-text"></p>
+            <ul id="future-events"></ul>
             <!--populate via js with event attractions, classification, venue, start time -->
         </div>
-    </section>
     </section>
     <!-- Link the DayJS library -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
