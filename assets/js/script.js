@@ -23,6 +23,7 @@ eventLink = document.createElement('a');
 submitBtn.addEventListener('click', function getInput(e) {
     e.preventDefault();
     resultsContainer.style.display = 'block';
+    weatherCon.style.display = 'block';
     eventsList.innerHTML = '';
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
@@ -78,6 +79,8 @@ function displayEvents(data) {
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
             eventCon.appendChild(listDiv);
+            listDiv.style.height="400px"
+            listDiv.style.width="850px"
             eventsList.appendChild(eventEl);
         } 
     } else { 
@@ -127,6 +130,6 @@ function getWeather(search) {
             var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
             var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
             var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
-            weatherCon.innerHTML = '<ul><li><h3>This evening:</h3></li><li>'+eveningCondition+'</li><li>Sunset:'+sunset+'</li><li>Temperature:'+eveningTemp+'</li><li>Chance of Rain:'+eveningRainChance+'</li></ul>';
+            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
         });
 }
