@@ -2,8 +2,11 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
+var listDiv = document.createElement('div');
+listDiv.setAttribute('class', 'uk-panel-scrollable');
 var eventsList = document.createElement('ul');
-eventsList.setAttribute('class', 'events-list uk-list uk-list-divider uk-list-collapse');
+eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
+listDiv.appendChild(eventsList);
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
 
@@ -72,7 +75,7 @@ function displayEvents(data) {
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
-            eventCon.appendChild(eventsList);
+            eventCon.appendChild(listDiv);
             eventsList.appendChild(eventEl);
         } 
     } else { 
@@ -84,8 +87,9 @@ function displayEvents(data) {
 }
 
 eventsList.addEventListener('click', function furtherDetails(e) {
+    console.log('click');
     if(e.target.nodeName = 'li') {
-        eventCon.removeChild(eventsList);
+        eventCon.removeChild(listDiv);
 
         var expanded = e.target;
         eventName.textContent = expanded.innerHTML;
