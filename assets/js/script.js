@@ -2,11 +2,14 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
+
 var listDiv = document.createElement('div');
 listDiv.setAttribute('class', 'uk-panel-scrollable');
+
 var eventsList = document.createElement('ul');
-eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
+eventsList.setAttribute('class', 'events-list uk-list uk-list-divider
 const resultsContainer = document.getElementById('results-container')
+
 listDiv.appendChild(eventsList);
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
@@ -38,6 +41,7 @@ submitBtn.addEventListener('click', function getInput(e) {
 })
 
 
+
 function getEvents(city, state) {
     var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
@@ -57,6 +61,9 @@ function getEvents(city, state) {
     });
 }
 
+var currentEvents = document.querySelector('#current-events');
+var futureEvents = document.querySelector('#future-events');
+ 
 function displayEvents(data) {
     if(data.page.totalElements > 0) {
         for(i = 0; i < data._embedded.events.length; i++) {
@@ -82,6 +89,16 @@ function displayEvents(data) {
             listDiv.style.height="400px"
             listDiv.style.width="850px"
             eventsList.appendChild(eventEl);
+
+            var today = dayjs().format('YYYY-MM-DD');
+            
+            console.log(eventEl);
+            if (date == today){
+                currentEvents.appendChild(eventEl);
+            } else if (date > today){
+                document.querySelector('#coming-soon-text').textContent = 'Coming Soon . . .'
+                futureEvents.appendChild(eventEl);
+            }
         } 
     } else { 
         messageEl = document.createElement('p');
