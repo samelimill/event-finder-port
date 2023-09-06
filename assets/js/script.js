@@ -11,10 +11,14 @@ eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
 
 listDiv.appendChild(eventsList);
 var backBtn = document.createElement('button');
+backBtn.setAttribute('class', 'uk-modal-close-default');
 backBtn.textContent = 'Back to list';
-
+var modalDiv = document.querySelector('#modal-div');
+var singleDiv = document.querySelector('#single-div');
 singleEvent = document.createElement('ul');
 singleEvent.setAttribute('class', 'single-event');
+
+
 
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
@@ -82,6 +86,7 @@ function displayEvents(data) {
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
+            eventEl.setAttribute('uk-toggle', "target: #modal-div");
 
             var today = dayjs().format('YYYY-MM-DD');
             
@@ -102,29 +107,18 @@ function displayEvents(data) {
 }
 
 eventsList.addEventListener('click', function furtherDetails(e) {
-    eventsList.innerHTML = '';
     if(e.target.nodeName = 'li') {
-        eventCon.removeChild(listDiv);
-
         var expanded = e.target;
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
-        eventCon.appendChild(singleEvent);
+        singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
         singleEvent.appendChild(eventLink);
     }
-})
-
-backBtn.addEventListener('click', function backToList () {
-    eventCon.removeChild(singleEvent);
-    var searchHisList = JSON.parse(localStorage.getItem('saveSearch'));
-    var city = searchHisList.city;
-    var state = searchHisList.state;
-    getEvents(city, state);
 })
 
 function getWeather(search) {
