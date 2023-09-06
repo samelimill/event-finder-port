@@ -6,6 +6,7 @@ var listDiv = document.createElement('div');
 listDiv.setAttribute('class', 'uk-panel-scrollable');
 var eventsList = document.createElement('ul');
 eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
+const resultsContainer = document.getElementById('results-container')
 listDiv.appendChild(eventsList);
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
@@ -21,6 +22,7 @@ eventLink = document.createElement('a');
 
 submitBtn.addEventListener('click', function getInput(e) {
     e.preventDefault();
+    resultsContainer.style.display = 'block';
     eventsList.innerHTML = '';
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
