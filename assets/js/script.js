@@ -2,10 +2,13 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
+
 var listDiv = document.createElement('div');
 listDiv.setAttribute('class', 'uk-panel-scrollable');
+
 var eventsList = document.createElement('ul');
 eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
+
 listDiv.appendChild(eventsList);
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
@@ -33,6 +36,7 @@ submitBtn.addEventListener('click', function getInput(e) {
     getEvents(city, state);
     getWeather(search);
 })
+
 
 
 function getEvents(city, state) {
