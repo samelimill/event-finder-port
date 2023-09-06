@@ -3,12 +3,14 @@ var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
 var eventsList = document.createElement('ul');
+eventsList.setAttribute('class', 'events-list uk-list uk-list-divider uk-list-collapse');
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
 
 singleEvent = document.createElement('ul');
+singleEvent.setAttribute('class', 'single-event');
 
-var eventName = document.createElement('h4');
+var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
 eventLink = document.createElement('a');
 //to-do: add classification input (concerts, sports, arts-theatre, family)
@@ -83,7 +85,7 @@ function displayEvents(data) {
 
 eventsList.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
-        eventsList.innerHTML = '';
+        eventCon.removeChild(eventsList);
 
         var expanded = e.target;
         eventName.textContent = expanded.innerHTML;

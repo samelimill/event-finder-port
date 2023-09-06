@@ -46,6 +46,26 @@ h1 {
     box-shadow: 2px 2px 4px #3b3b3b;
 }
 
+#event-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.events-list {
+    width: 65%;
+}
+
+.events-list li {
+    text-align: left;
+}
+
+.single-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 a:hover, li:hover {
     color: rgb(0, 199, 43);
     text-shadow: 2px 2px 4px #3b3b3b;
@@ -57,14 +77,14 @@ li, a {
     cursor: grab;
 }
 
-h4 {
+h2 {
     color: white;
     font-size: 30px;
     text-shadow: 2px 2px 4px #3b3b3b;
 }
 
 img {
-    max-width: 80%;
+    width: 500px;
 }
 
 .uk-card-search {
