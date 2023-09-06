@@ -2,14 +2,14 @@
     text-align: center;
     font-size: 18px;
     font-family: 'Lexend Deca', sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+    align-items: center;
+    /* margin: 0;
+    padding: 0; */
 }
 
 html {
     background-image: linear-gradient(to bottom,
-            rgba(110, 107, 255, 0.4),
+            #6e6bff66,
             rgba(198, 198, 255, 0.3)), url("https://wallpapercave.com/wp/wp2349475.jpg");
     height: 100%;
     background-size: cover;
@@ -52,12 +52,13 @@ h1 {
     align-items: center;
 }
 
-.uk-panel-scrollable {
+/* .events-list {
     width: 65%;
-}
+} */
 
 .events-list li {
-    text-align: left;
+    text-align: center;
+    line-height: 25px;
 }
 
 .single-event {
@@ -66,12 +67,14 @@ h1 {
     align-items: center;
 }
 
-a:hover, li:hover {
+a:hover,
+li:hover {
     color: rgb(0, 199, 43);
     text-shadow: 2px 2px 4px #3b3b3b;
 }
 
-li, a {
+li,
+a {
     color: white;
     list-style-type: none;
     cursor: grab;
@@ -87,29 +90,43 @@ img {
     width: 500px;
 }
 
-.uk-card-search {
+.form-weather {
     background-color: rgba(168, 168, 168, 0.644);
     background-size: cover;
     background-position: center;
-    border: 1px solid #ff000077;
+    border: 1px solid #6e6bff66;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 8px 10px 16px 8px black; 
-    width: 350px;
-    height: 100px;
-    transition: all 0.3s ease-in-out; 
+    box-shadow: 8px 10px 16px 8px rgb(43, 43, 43);
+    width: 500px;
+    height: 150px;
+    transition: all 0.3s ease-in-out;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    margin: 50px 50px 50px 50px;
 }
 
-.uk-card-search:hover {
-    background-color: whitesmoke; 
-    transform: translateY(-6px); 
-    box-shadow: 0px 8px 16px black; 
+.form-weather:hover {
+    background-color: whitesmoke;
+    transform: translateY(-6px);
+    box-shadow: 0px 8px 16px black;
+}
+
+.event-results {
+    background-color: rgba(168, 168, 168, 0.644);
+    background-size: cover;
+    background-position: center;
+    border: 1px solid#6e6bff66;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 8px 10px 16px 8px rgb(43, 43, 43);
+    width: 900px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
 }
 
 .uk-heading-line {
-    width: 100%; 
-    margin: 10px auto; 
+    width: 100%;
+    margin: 10px auto;
 }
