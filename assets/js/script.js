@@ -33,7 +33,7 @@ submitBtn.addEventListener('click', function getInput(e) {
 
 
 function getEvents(city, state) {
-    var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
+    var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
     .then(function(response) {
         if(response.status === 200) {
