@@ -2,15 +2,18 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
+
 var listDiv = document.createElement('div');
 listDiv.setAttribute('class', 'uk-panel-scrollable');
+
 var eventsList = document.createElement('ul');
-eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
+eventsList.setAttribute('class', 'events-list uk-list uk-list-divider
+const resultsContainer = document.getElementById('results-container')
+
 listDiv.appendChild(eventsList);
 var backBtn = document.createElement('button');
 backBtn.textContent = 'Back to list';
-var currentEvents = document.querySelector('#current-events');
-var futureEvents = document.querySelector('#future-events');
+
 singleEvent = document.createElement('ul');
 singleEvent.setAttribute('class', 'single-event');
 
@@ -22,6 +25,8 @@ eventLink = document.createElement('a');
 
 submitBtn.addEventListener('click', function getInput(e) {
     e.preventDefault();
+    resultsContainer.style.display = 'block';
+    weatherCon.style.display = 'block';
     eventsList.innerHTML = '';
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
@@ -34,6 +39,7 @@ submitBtn.addEventListener('click', function getInput(e) {
     getEvents(city, state);
     getWeather(search);
 })
+
 
 
 function getEvents(city, state) {
@@ -55,6 +61,9 @@ function getEvents(city, state) {
     });
 }
 
+var currentEvents = document.querySelector('#current-events');
+var futureEvents = document.querySelector('#future-events');
+ 
 function displayEvents(data) {
     if(data.page.totalElements > 0) {
         for(i = 0; i < data._embedded.events.length; i++) {
@@ -77,7 +86,19 @@ function displayEvents(data) {
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
             eventCon.appendChild(listDiv);
+            listDiv.style.height="400px"
+            listDiv.style.width="850px"
             eventsList.appendChild(eventEl);
+
+            var today = dayjs().format('YYYY-MM-DD');
+            
+            console.log(eventEl);
+            if (date == today){
+                currentEvents.appendChild(eventEl);
+            } else if (date > today){
+                document.querySelector('#coming-soon-text').textContent = 'Coming Soon . . .'
+                futureEvents.appendChild(eventEl);
+            }
         } 
     } else { 
         messageEl = document.createElement('p');
@@ -126,6 +147,6 @@ function getWeather(search) {
             var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
             var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
             var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
-            weatherCon.innerHTML = '<ul><li><h3>This evening:</h3></li><li>'+eveningCondition+'</li><li>Sunset:'+sunset+'</li><li>Temperature:'+eveningTemp+'</li><li>Chance of Rain:'+eveningRainChance+'</li></ul>';
+            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
         });
 }
