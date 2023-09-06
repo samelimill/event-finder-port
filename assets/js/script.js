@@ -7,7 +7,8 @@ var listDiv = document.createElement('div');
 listDiv.setAttribute('class', 'uk-panel-scrollable');
 
 var eventsList = document.createElement('ul');
-eventsList.setAttribute('class', 'events-list uk-list uk-list-divider
+
+eventsList.setAttribute('class', 'events-list uk-list uk-list-divider')
 const resultsContainer = document.getElementById('results-container')
 
 listDiv.appendChild(eventsList);
