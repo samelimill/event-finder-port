@@ -18,7 +18,7 @@ listDiv.appendChild(currentEvents);
 
 
 var backBtn = document.createElement('button');
-backBtn.setAttribute('class', 'uk-modal-close-default');
+backBtn.setAttribute('class', 'uk-modal-close-outside back-bttn');
 backBtn.textContent = 'Back to list';
 var modalDiv = document.querySelector('#modal-div');
 var singleDiv = document.querySelector('#single-div');

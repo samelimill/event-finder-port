@@ -66,7 +66,7 @@ a:hover,
 }
 
 li,
-a {
+#event-container a {
     color: white;
     list-style-type: none;
     
@@ -77,14 +77,25 @@ a {
     cursor: grab;
 }
 
+#single-div {
+    padding-top: 50px;
+    width: 75%;
+    height: 90%;
+}
+
 h2 {
-    color: white;
+    /*color: white;*/
     font-size: 30px;
     text-shadow: 2px 2px 4px #3b3b3b;
 }
 
 img {
     width: 500px;
+    margin-bottom: 50px;
+}
+
+.back-bttn {
+    color: black;
 }
 
 .form-weather {
