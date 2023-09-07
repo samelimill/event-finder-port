@@ -31,19 +31,19 @@ h1 {
     text-shadow: 3px 3px 4px #3b3b3b;
 }
 
+h3 {
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 30px;
+    color: white;
+    text-shadow: 3px 3px 4px #3b3b3b;
+}
+
 #submit-button {
-    /* background-color: rgba(35, 31, 255, 0.8);
-    color: white; */
     box-shadow: 2px 2px 4px #3b3b3b;
 }
 
 .uk-align-center {
     margin-top: 50px;
-}
-
-.uk-input {
-    width: 300px;
-    box-shadow: 2px 2px 4px #3b3b3b;
 }
 
 #event-container {
@@ -53,15 +53,6 @@ h1 {
     align-items: center;
 }
 
-/* .events-list {
-    width: 65%;
-} */
-
-.events-list li {
-    text-align: center;
-    line-height: 25px;
-}
-
 .single-event {
     display: flex;
     flex-direction: column;
@@ -69,8 +60,8 @@ h1 {
 }
 
 a:hover,
-li:hover {
-    color: rgb(0, 199, 43);
+li:hover{
+    /* color: rgb(0, 199, 43); */
     text-shadow: 2px 2px 4px #3b3b3b;
 }
 
@@ -105,29 +96,36 @@ img {
     display: flex;
     justify-content: center;
     margin: 50px 50px 50px 50px;
+    /* line-height: 20px; */
 }
 
 .form-weather:hover {
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
     transform: translateY(-6px);
     box-shadow: 0px 8px 16px black;
 }
 
 .event-results {
     background-color: rgba(168, 168, 168, 0.644);
-    background-size: cover;
-    background-position: center;
     border: 1px solid#6e6bff66;
     border-radius: 10px;
     padding: 15px;
     box-shadow: 8px 10px 16px 8px rgb(43, 43, 43);
     width: 900px;
-    transition: all 0.3s ease-in-out;
-    display: flex;
-    justify-content: center;
 }
 
 .uk-heading-line {
     width: 100%;
     margin: 10px auto;
+}
+
+#weather-container,
+#results-container {
+    display: none;
+}
+
+footer {
+    margin-top: 50px;
+    color: white;
+    text-shadow: 2px 2px 4px #3b3b3b;
 }
