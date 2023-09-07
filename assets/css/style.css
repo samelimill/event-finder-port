@@ -60,8 +60,8 @@ h3 {
 }
 
 a:hover,
-li:hover{
-    /* color: rgb(0, 199, 43); */
+#event-container li:hover{
+    color: rgb(0, 199, 43); 
     text-shadow: 2px 2px 4px #3b3b3b;
 }
 
@@ -69,6 +69,11 @@ li,
 a {
     color: white;
     list-style-type: none;
+    
+}
+
+#event-container li,
+a {
     cursor: grab;
 }
 
