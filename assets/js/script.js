@@ -24,8 +24,6 @@ singleEvent.setAttribute('class', 'single-event');
 
 
 
-var today = dayjs().format('YYYY-MM-DD');
-var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
 var eventLink = document.createElement('a');
@@ -75,20 +73,18 @@ function displayEvents(data) {
             var hour = localTime.substr(0, 2);
             var minutes = localTime.substr(3, 2);
             var AmOrPm = hour >= 12 ? 'pm' : 'am'; //via medium.com, how to convert 24 hours format to 12 hours
-            twelveHour = (hour % 12) || 12; //via medium.com
-            var finalTime = twelveHour + ':' + minutes + AmOrPm;
+            hour = (hour % 12) || 12; //via medium.com
+            var finalTime = hour + ':' + minutes + AmOrPm;
             var id = data._embedded.events[i].id;
             var image = data._embedded.events[i].images[2].url;
             var link = data._embedded.events[i].url;
-            var weatherIcon = weatherArray;
-
+        
             eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
             eventEl.setAttribute('data-id', id);
             eventEl.setAttribute('data-date', date);
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
-            eventEl.setAttribute('data-time', time);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
             // eventCon.appendChild(listDiv);
             // listDiv.style.height="400px"
@@ -97,7 +93,7 @@ function displayEvents(data) {
             // resultsContainer.style.width="900px";
             // eventsList.appendChild(eventEl);
 
-            
+            var today = dayjs().format('YYYY-MM-DD');
             
             if (date == today){
                 currentEvents.appendChild(eventEl);
@@ -116,25 +112,13 @@ function displayEvents(data) {
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
-        var condition;
-        var temp;
-        var date = expanded.getAttribute('data-date');
-        var time = expanded.getAttribute('data-time');
-        for(i=0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
-            var forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
-            if (date===today && time===forecastHour) {
-                condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
-                temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
-                forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
-            }
-        }
+        console.log(expanded);
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
         singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
-        singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
         singleEvent.appendChild(eventLink);
