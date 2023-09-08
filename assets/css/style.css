@@ -59,6 +59,10 @@ h3 {
     align-items: center;
 }
 
+.single-event a {
+    padding-bottom: 5px;
+}
+
 a:hover,
 #event-container li:hover{
     color: rgb(0, 199, 43); 
@@ -78,7 +82,7 @@ a {
 }
 
 #single-div {
-    padding-top: 20px;
+    padding-top: 10px;
     width: 75%;
     height: 100%;
 }

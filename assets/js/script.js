@@ -27,6 +27,7 @@ singleEvent.setAttribute('class', 'single-event');
 
 
 
+var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
 var eventLink = document.createElement('a');
@@ -143,7 +144,6 @@ function displayEvents(data) {
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
-        var forecastEl = document.createElement('p');
         var condition;
         var temp;
         console.log(expanded);
@@ -151,7 +151,6 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         for(i=0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
             var forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
             if (time === forecastHour) {
-                console.log(time);
                 condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
                 temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
                 forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
