@@ -148,16 +148,14 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         var condition;
         var temp;
         var date = expanded.getAttribute('data-date');
-        console.log(expanded);
         var time = expanded.getAttribute('data-time');
         for(i=0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
             var forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
-            if (date === today && time === forecastHour) {
+            if (date===today && time===forecastHour) {
                 condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
                 temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
                 forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
             }
-            else { forecastEl.textContent = ''; }
         }
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
