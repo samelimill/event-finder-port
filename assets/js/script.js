@@ -27,6 +27,7 @@ singleEvent.setAttribute('class', 'single-event');
 
 
 
+var today = dayjs().format('YYYY-MM-DD');
 var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
@@ -124,7 +125,7 @@ function displayEvents(data) {
             resultsContainer.style.width="850px";
             eventsList.appendChild(eventEl);
 
-            var today = dayjs().format('YYYY-MM-DD');
+            
             
             if (date == today){
                 currentEvents.appendChild(eventEl);
@@ -146,15 +147,17 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         var expanded = e.target;
         var condition;
         var temp;
+        var date = expanded.getAttribute('data-date');
         console.log(expanded);
         var time = expanded.getAttribute('data-time');
         for(i=0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
             var forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
-            if (time === forecastHour) {
+            if (date === today && time === forecastHour) {
                 condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
                 temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
                 forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
             }
+            else { forecastEl.textContent = ''; }
         }
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
