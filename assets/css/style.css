@@ -29,6 +29,14 @@ h1 {
     font-size: 100px;
     color: white;
     text-shadow: 3px 3px 4px #3b3b3b;
+    transition: color 2s ease, text-shadow 2s ease, font-size 2s ease;
+}
+
+h1:hover {
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 110px;
+    color: rgba(255, 0, 0, 0.712); 
+    text-shadow: 20px 20px 20px #3b3b3b; 
 }
 
 h3 {
@@ -145,7 +153,22 @@ img {
 }
 
 footer {
-    margin-top: 50px;
-    color: white;
-    text-shadow: 2px 2px 4px #3b3b3b;
+    margin-top: 400px;
+    color: #fff;
+    padding: 10px; 
+    text-align: center;
+    font-size: 10px;
+    border-radius: 1px #ff000073;
+    box-shadow: 8px 10px 16px 8px rgb(43, 43, 43);
+    transition: background-color 4s ease, transform 4s ease;
+}
+
+
+footer:hover {
+    color: red;
+    background-color: rgba(0, 0, 0, 0.616);
+    border: 3px solid rgba(255, 0, 0, 0.411);
+    box-shadow: 8px 10px 16px 8px rgb(43, 43, 43);
+    transform: scale(1.75);
+    cursor: pointer;
 }
