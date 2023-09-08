@@ -100,11 +100,12 @@ function displayEvents(data) {
             var hour = localTime.substr(0, 2);
             var minutes = localTime.substr(3, 2);
             var AmOrPm = hour >= 12 ? 'pm' : 'am'; //via medium.com, how to convert 24 hours format to 12 hours
-            hour = (hour % 12) || 12; //via medium.com
-            var finalTime = hour + ':' + minutes + AmOrPm;
+            twelveHour = (hour % 12) || 12; //via medium.com
+            var finalTime = twelveHour + ':' + minutes + AmOrPm;
             var id = data._embedded.events[i].id;
             var image = data._embedded.events[i].images[2].url;
             var link = data._embedded.events[i].url;
+            var time = date + ' ' + hour + ':' + minutes;
             var weatherIcon = weatherArray;
 
             eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
@@ -113,6 +114,7 @@ function displayEvents(data) {
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
+            eventEl.setAttribute('data-time', time);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
             // eventCon.appendChild(listDiv);
             // listDiv.style.height="400px"
@@ -141,13 +143,27 @@ function displayEvents(data) {
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
+        var forecastEl = document.createElement('p');
+        var condition;
+        var temp;
         console.log(expanded);
+        var time = expanded.getAttribute('data-time');
+        for(i=0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
+            var forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
+            if (time === forecastHour) {
+                console.log(time);
+                condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
+                temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
+                forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
+            }
+        }
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
         singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
+        singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
         singleEvent.appendChild(eventLink);
