@@ -2,9 +2,9 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
-
-var listDiv = document.createElement('div');
-listDiv.setAttribute('class', 'uk-panel-scrollable');
+var comingSoonText = document.querySelector('#coming-soon-text'); 
+// var listDiv = document.createElement('div');
+// listDiv.setAttribute('class', 'uk-panel-scrollable');
 
 var eventsList = document.createElement('ul');
 var currentEvents = document.querySelector('#current-events');
@@ -14,7 +14,7 @@ futureEvents.setAttribute('class', 'uk-list uk-list-divider');
 
 const resultsContainer = document.getElementById('results-container')
 
-listDiv.appendChild(currentEvents);
+// listDiv.appendChild(currentEvents);
 
 
 var backBtn = document.createElement('button');
@@ -93,9 +93,11 @@ function displayEvents(data) {
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
-            eventCon.appendChild(listDiv);
-            listDiv.style.height="400px"
-            listDiv.style.width="850px"
+            // eventCon.appendChild(listDiv);
+            // listDiv.style.height="400px"
+            // listDiv.style.width="850px"
+            resultsContainer.style.height="400px";
+            resultsContainer.style.width="850px";
             eventsList.appendChild(eventEl);
 
             var today = dayjs().format('YYYY-MM-DD');
@@ -118,6 +120,7 @@ function displayEvents(data) {
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
+        
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
