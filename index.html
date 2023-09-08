@@ -5,13 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
+
     <link rel="stylesheet" href="assets/css/reset.css" />
 
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit-icons.min.js"></script>
-    
+
     <!--G fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,14 +19,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/css/uikit.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <!-- UIkit CSS -->
-    
+
 </head>
 
 <body>
     <header class="uk-align-center uk-heading-line">
         <h1>Events Near Me Today</h1>
     </header>
-<!-- 2 columns-->
+    <!-- 2 columns-->
     <section class="uk-grid" id="input-form-container">
         <form class="uk-width-1-2 uk-search uk-card-search form-weather">
             <input class="uk-input" id='search-input' type="search" placeholder="Portland, OR">
@@ -36,20 +36,30 @@
             <!--populate via js with weather based on city from user input-->
         </div>
     </section>
-<!-- 1 column-->
-    <section class ="uk-width-1-1 event-results uk-panel-scrollable" id="results-container">
-        <div id="event-container">
-            <ul id="current-events"></ul>
-            <p id="coming-soon-text" class="uk-text-emphasis"></p>
-            <ul id="future-events"></ul>
-        </div>
-    </section>
+    <!-- 1 column-->
+    <div id="results-container">
+        <ul uk-accordion="collapsible: false" class="event-results" id="event-container">
+            <li>
+                <a class="uk-accordion-title" href="#">Today's Events</a>
+                <div class="uk-accordion-content">
+                    <ul id="current-events"></ul>
+                </div>
+            </li>
+            <li>
+                <a class="uk-accordion-title" href="#">Upcoming Events</a>
+                <div class="uk-accordion-content uk-panel-scrollable">
+                    <ul id="future-events"></ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+
     <section>
         <div id="modal-div" uk-modal>
             <div id="single-div" class="uk-modal-dialog"></div>
         </div>
     </section>
-    
+
     <!-- Link the DayJS library -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
@@ -60,4 +70,5 @@
 <footer>
     Made with blood, sweat, and tears
 </footer>
+
 </html>

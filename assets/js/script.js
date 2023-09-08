@@ -2,9 +2,6 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
-var comingSoonText = document.querySelector('#coming-soon-text'); 
-// var listDiv = document.createElement('div');
-// listDiv.setAttribute('class', 'uk-panel-scrollable');
 
 var eventsList = document.createElement('ul');
 var currentEvents = document.querySelector('#current-events');
@@ -50,8 +47,6 @@ submitBtn.addEventListener('click', function getInput(e) {
     getWeather(search);
 })
 
-
-
 function getEvents(city, state) {
     var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
@@ -62,33 +57,11 @@ function getEvents(city, state) {
                 console.log(data);
             })
         } else { 
-            resultsContainer.style.display = 'none';
-            weatherCon.style.display = 'none';
             UIkit.modal.alert('Please enter a city and state!');
         }
     });
 }
-
-var weatherArray = [];
-
-function getWeather(search) {
-    var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
-    
-    fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            var sunset = data.forecast.forecastday[0].astro.sunset;
-            var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
-            var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
-            var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
-            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
-            weatherArray = data;
-        });
-}
-
+ 
 function displayEvents(data) {
     resultsContainer.style.display = 'block';
     weatherCon.style.display = 'block';
@@ -105,8 +78,7 @@ function displayEvents(data) {
             var id = data._embedded.events[i].id;
             var image = data._embedded.events[i].images[2].url;
             var link = data._embedded.events[i].url;
-            var weatherIcon = weatherArray;
-
+        
             eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
             eventEl.setAttribute('data-id', id);
             eventEl.setAttribute('data-date', date);
@@ -117,16 +89,15 @@ function displayEvents(data) {
             // eventCon.appendChild(listDiv);
             // listDiv.style.height="400px"
             // listDiv.style.width="850px"
-            resultsContainer.style.height="400px";
-            resultsContainer.style.width="850px";
-            eventsList.appendChild(eventEl);
+            // resultsContainer.style.height="400px";
+            // resultsContainer.style.width="900px";
+            // eventsList.appendChild(eventEl);
 
             var today = dayjs().format('YYYY-MM-DD');
             
             if (date == today){
                 currentEvents.appendChild(eventEl);
             } else if (date > today){
-                document.querySelector('#coming-soon-text').textContent = 'Coming Soon . . .'
                 futureEvents.appendChild(eventEl);
             }
         } 
@@ -134,7 +105,7 @@ function displayEvents(data) {
         messageEl = document.createElement('p');
         messageEl.textContent = 'Sorry, no events found';
         eventCon.appendChild(eventsList);
-        eventsList.appendChild(messageEl);
+        // eventsList.appendChild(messageEl);
     }
 }
 
@@ -154,3 +125,18 @@ eventCon.addEventListener('click', function furtherDetails(e) {
     }
 })
 
+function getWeather(search) {
+    var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
+    
+    fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            var sunset = data.forecast.forecastday[0].astro.sunset;
+            var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
+            var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
+            var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
+            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
+        });
+}
