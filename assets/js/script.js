@@ -35,8 +35,6 @@ var eventLink = document.createElement('a');
 
 submitBtn.addEventListener('click', function getInput(e) {
     e.preventDefault();
-    resultsContainer.style.display = 'block';
-    weatherCon.style.display = 'block';
     eventsList.innerHTML = '';
     currentEvents.innerHTML = '';
     futureEvents.innerHTML = '';
@@ -58,20 +56,20 @@ function getEvents(city, state) {
     var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
     .then(function(response) {
-        if(response.status === 200) {
+        if(city && state) {
             response.json().then(function(data){
                 displayEvents(data);
+                console.log(data);
             })
         } else { 
-            var errorEl = document.createElement('p')
-            errorEl.textContent = 'Failed to get results. Please check search format.';
-            eventCon.appendChild(eventsList);
-            eventsList.appendChild(errorEl);
+            UIkit.modal.alert('Please enter a city and state!');
         }
     });
 }
  
 function displayEvents(data) {
+    resultsContainer.style.display = 'block';
+    weatherCon.style.display = 'block';
     if(data.page.totalElements > 0) {
         for(i = 0; i < data._embedded.events.length; i++) {
             var eventEl = document.createElement('li');
@@ -120,7 +118,7 @@ function displayEvents(data) {
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
-        
+        console.log(expanded);
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
@@ -141,7 +139,6 @@ function getWeather(search) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
             var sunset = data.forecast.forecastday[0].astro.sunset;
             var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
             var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
