@@ -27,6 +27,8 @@ singleEvent.setAttribute('class', 'single-event');
 
 
 
+var today = dayjs().format('YYYY-MM-DD');
+var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
 var eventLink = document.createElement('a');
@@ -62,11 +64,33 @@ function getEvents(city, state) {
                 console.log(data);
             })
         } else { 
+            resultsContainer.style.display = 'none';
+            weatherCon.style.display = 'none';
             UIkit.modal.alert('Please enter a city and state!');
         }
     });
 }
- 
+
+var weatherArray = [];
+
+function getWeather(search) {
+    var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
+    
+    fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            var sunset = data.forecast.forecastday[0].astro.sunset;
+            var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
+            var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
+            var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
+            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
+            weatherArray = data;
+        });
+}
+
 function displayEvents(data) {
     resultsContainer.style.display = 'block';
     weatherCon.style.display = 'block';
@@ -78,18 +102,21 @@ function displayEvents(data) {
             var hour = localTime.substr(0, 2);
             var minutes = localTime.substr(3, 2);
             var AmOrPm = hour >= 12 ? 'pm' : 'am'; //via medium.com, how to convert 24 hours format to 12 hours
-            hour = (hour % 12) || 12; //via medium.com
-            var finalTime = hour + ':' + minutes + AmOrPm;
+            twelveHour = (hour % 12) || 12; //via medium.com
+            var finalTime = twelveHour + ':' + minutes + AmOrPm;
             var id = data._embedded.events[i].id;
             var image = data._embedded.events[i].images[2].url;
             var link = data._embedded.events[i].url;
-        
+            var time = date + ' ' + hour + ':' + minutes;
+            var weatherIcon = weatherArray;
+
             eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
             eventEl.setAttribute('data-id', id);
             eventEl.setAttribute('data-date', date);
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
+            eventEl.setAttribute('data-time', time);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
             // eventCon.appendChild(listDiv);
             // listDiv.style.height="400px"
@@ -98,7 +125,7 @@ function displayEvents(data) {
             resultsContainer.style.width="850px";
             eventsList.appendChild(eventEl);
 
-            var today = dayjs().format('YYYY-MM-DD');
+            
             
             if (date == today){
                 currentEvents.appendChild(eventEl);
@@ -118,31 +145,28 @@ function displayEvents(data) {
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
-        console.log(expanded);
+        var condition;
+        var temp;
+        var date = expanded.getAttribute('data-date');
+        var time = expanded.getAttribute('data-time');
+        for(i=0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
+            var forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
+            if (date===today && time===forecastHour) {
+                condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
+                temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
+                forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
+            }
+        }
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
         singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
+        singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
         singleEvent.appendChild(eventLink);
     }
 })
 
-function getWeather(search) {
-    var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
-    
-    fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            var sunset = data.forecast.forecastday[0].astro.sunset;
-            var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
-            var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
-            var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
-            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
-        });
-}
