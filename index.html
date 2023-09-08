@@ -37,8 +37,8 @@
         </div>
     </section>
 <!-- 1 column-->
-    <section class ="uk-width-1-1 event-results" id="results-container">
-        <div id="event-container" class="uk-panel-scrollable">
+    <section class ="uk-width-1-1 event-results uk-panel-scrollable" id="results-container">
+        <div id="event-container">
             <ul id="current-events"></ul>
             <p id="coming-soon-text"></p>
             <ul id="future-events"></ul>
@@ -48,6 +48,12 @@
             <div id="single-div" class=".uk-modal-dialog"></div>
         </div>
     </section>
+    <section>
+        <div id="modal-div" uk-modal>
+            <div id="single-div" class="uk-modal-dialog"></div>
+        </div>
+    </section>
+    
     <!-- Link the DayJS library -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
@@ -55,4 +61,7 @@
 
 </body>
 
+<footer>
+    Made with blood, sweat, and tears
+</footer>
 </html>

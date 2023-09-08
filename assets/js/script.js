@@ -2,33 +2,44 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
-
-var listDiv = document.createElement('div');
-listDiv.setAttribute('class', 'uk-panel-scrollable');
+var comingSoonText = document.querySelector('#coming-soon-text'); 
+// var listDiv = document.createElement('div');
+// listDiv.setAttribute('class', 'uk-panel-scrollable');
 
 var eventsList = document.createElement('ul');
-eventsList.setAttribute('class', 'events-list uk-list uk-list-divider');
+var currentEvents = document.querySelector('#current-events');
+var futureEvents = document.querySelector('#future-events');
+currentEvents.setAttribute('class', 'uk-list uk-list-divider');
+futureEvents.setAttribute('class', 'uk-list uk-list-divider');
 
-listDiv.appendChild(eventsList);
+const resultsContainer = document.getElementById('results-container')
+
+// listDiv.appendChild(currentEvents);
+
+
 var backBtn = document.createElement('button');
-backBtn.setAttribute('class', 'uk-modal-close-default');
+backBtn.setAttribute('class', 'uk-modal-close-outside back-bttn');
 backBtn.textContent = 'Back to list';
 var modalDiv = document.querySelector('#modal-div');
 var singleDiv = document.querySelector('#single-div');
-singleEvent = document.createElement('ul');
+var singleEvent = document.createElement('ul');
 singleEvent.setAttribute('class', 'single-event');
 
 
 
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
-eventLink = document.createElement('a');
+var eventLink = document.createElement('a');
 //to-do: add classification input (concerts, sports, arts-theatre, family)
 
 
 submitBtn.addEventListener('click', function getInput(e) {
     e.preventDefault();
+    resultsContainer.style.display = 'block';
+    weatherCon.style.display = 'block';
     eventsList.innerHTML = '';
+    currentEvents.innerHTML = '';
+    futureEvents.innerHTML = '';
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
     var city = search.substr(0, search.length-4);
@@ -49,8 +60,6 @@ function getEvents(city, state) {
     .then(function(response) {
         if(response.status === 200) {
             response.json().then(function(data){
-                console.log(response.status);
-                console.log(data);
                 displayEvents(data);
             })
         } else { 
@@ -61,14 +70,11 @@ function getEvents(city, state) {
         }
     });
 }
-
-var currentEvents = document.querySelector('#current-events');
-var futureEvents = document.querySelector('#future-events');
  
 function displayEvents(data) {
     if(data.page.totalElements > 0) {
         for(i = 0; i < data._embedded.events.length; i++) {
-            eventEl = document.createElement('li');
+            var eventEl = document.createElement('li');
             var date = data._embedded.events[i].dates.start.localDate;
             var localTime = data._embedded.events[i].dates.start.localTime;
             var hour = localTime.substr(0, 2);
@@ -87,10 +93,15 @@ function displayEvents(data) {
             eventEl.setAttribute('data-img', image);
             eventEl.setAttribute('data-link', link);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
+            // eventCon.appendChild(listDiv);
+            // listDiv.style.height="400px"
+            // listDiv.style.width="850px"
+            resultsContainer.style.height="400px";
+            resultsContainer.style.width="850px";
+            eventsList.appendChild(eventEl);
 
             var today = dayjs().format('YYYY-MM-DD');
             
-            console.log(eventEl);
             if (date == today){
                 currentEvents.appendChild(eventEl);
             } else if (date > today){
@@ -106,9 +117,10 @@ function displayEvents(data) {
     }
 }
 
-eventsList.addEventListener('click', function furtherDetails(e) {
+eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
+        
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
@@ -134,6 +146,6 @@ function getWeather(search) {
             var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
             var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
             var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
-            weatherCon.innerHTML = '<ul><li><h3>This evening:</h3></li><li>'+eveningCondition+'</li><li>Sunset:'+sunset+'</li><li>Temperature:'+eveningTemp+'</li><li>Chance of Rain:'+eveningRainChance+'</li></ul>';
+            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
         });
 }
