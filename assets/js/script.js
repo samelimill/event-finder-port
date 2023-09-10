@@ -15,29 +15,21 @@ var eventImg = document.createElement('img');
 var eventDesc = document.createElement('p');
 var eventPrice = document.createElement('p');
 var eventLink = document.createElement('a');
-
-currentEvents.setAttribute('class', 'uk-list uk-list-divider');
-futureEvents.setAttribute('class', 'uk-list uk-list-divider');
-
-
-
-
-backBtn.setAttribute('class', 'uk-modal-close-outside back-bttn');
-backBtn.textContent = 'Back to list';
 var modalDiv = document.querySelector('#modal-div');
 var singleDiv = document.querySelector('#single-div');
 var singleEvent = document.createElement('ul');
-singleEvent.setAttribute('class', 'single-event');
 
-
-
-var today = dayjs().format('YYYY-MM-DD');
-
-
+currentEvents.setAttribute('class', 'uk-list uk-list-divider');
+futureEvents.setAttribute('class', 'uk-list uk-list-divider');
+backBtn.setAttribute('class', 'uk-modal-close-outside back-bttn');
 eventPrice.setAttribute('class', 'card-price-text');
 eventDesc.setAttribute('class', 'event-desc-text');
 eventLink.setAttribute('class', 'card-link-text');
 forecastEl.setAttribute('class', 'card-forecast-text')
+singleEvent.setAttribute('class', 'single-event');
+backBtn.textContent = 'Back to list';
+
+var today = dayjs().format('YYYY-MM-DD');
 
 submitBtn.addEventListener('click', function getInput(e) {
     e.preventDefault();
@@ -50,13 +42,11 @@ submitBtn.addEventListener('click', function getInput(e) {
     var prevSearch = {
         'city': city,
         'state': state
-    }
+    };
     searchHistory = localStorage.setItem('saveSearch', JSON.stringify(prevSearch));
     getEvents(city, state);
     getWeather(search);
 })
-
-
 
 function getEvents(city, state) {
     var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
@@ -146,7 +136,6 @@ function displayEvents(data) {
             if (date == today){
                 currentEvents.appendChild(eventEl);
             } else if (date > today){
-                document.querySelector('#coming-soon-text').textContent = 'Coming Soon . . .'
                 futureEvents.appendChild(eventEl);
             }
         } 
@@ -163,7 +152,6 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         var expanded = e.target;
         var date = expanded.getAttribute('data-date');
         var time = expanded.getAttribute('data-time');
-
         if(date === today) {
             for(i = 0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
                 forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
