@@ -4,7 +4,7 @@
 ```
 As a very cool person looking for an an event
 I want to find nearby shows/games and weather
-So I can be fully prepared and comforatble for the festivities.
+So I can be fully prepared and comfortable for the festivities.
 ```
 
 ## Description
