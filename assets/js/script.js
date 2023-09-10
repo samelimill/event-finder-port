@@ -2,9 +2,6 @@ var searchBar = document.querySelector('#search-input');
 var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
-var comingSoonText = document.querySelector('#coming-soon-text'); 
-// var listDiv = document.createElement('div');
-// listDiv.setAttribute('class', 'uk-panel-scrollable');
 
 var eventsList = document.createElement('ul');
 var currentEvents = document.querySelector('#current-events');
@@ -12,7 +9,7 @@ var futureEvents = document.querySelector('#future-events');
 currentEvents.setAttribute('class', 'uk-list uk-list-divider');
 futureEvents.setAttribute('class', 'uk-list uk-list-divider');
 
-const resultsContainer = document.getElementById('results-container');
+const resultsContainer = document.getElementById('results-container')
 
 // listDiv.appendChild(currentEvents);
 
@@ -27,12 +24,8 @@ singleEvent.setAttribute('class', 'single-event');
 
 
 
-var today = dayjs().format('YYYY-MM-DD');
-var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
-var eventDesc = document.createElement('p');
-var eventPrice = document.createElement('p');
 var eventLink = document.createElement('a');
 //to-do: add classification input (concerts, sports, arts-theatre, family)
 
@@ -54,8 +47,6 @@ submitBtn.addEventListener('click', function getInput(e) {
     getWeather(search);
 })
 
-
-
 function getEvents(city, state) {
     var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
@@ -66,35 +57,12 @@ function getEvents(city, state) {
                 console.log(data);
             })
         } else { 
-            resultsContainer.style.display = 'none';
-            weatherCon.style.display = 'none';
             UIkit.modal.alert('Please enter a city and state!');
         }
     });
 }
-
-var weatherArray = [];
-
-function getWeather(search) {
-    var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
-    
-    fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            var sunset = data.forecast.forecastday[0].astro.sunset;
-            var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
-            var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
-            var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
-            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
-            weatherArray = data;
-        });
-}
-
+ 
 function displayEvents(data) {
-    console.log(data);
     resultsContainer.style.display = 'block';
     weatherCon.style.display = 'block';
     if(data.page.totalElements > 0) {
@@ -105,46 +73,31 @@ function displayEvents(data) {
             var hour = localTime.substr(0, 2);
             var minutes = localTime.substr(3, 2);
             var AmOrPm = hour >= 12 ? 'pm' : 'am'; //via medium.com, how to convert 24 hours format to 12 hours
-            twelveHour = (hour % 12) || 12; //via medium.com
-            var finalTime = twelveHour + ':' + minutes + AmOrPm;
+            hour = (hour % 12) || 12; //via medium.com
+            var finalTime = hour + ':' + minutes + AmOrPm;
             var id = data._embedded.events[i].id;
             var image = data._embedded.events[i].images[2].url;
             var link = data._embedded.events[i].url;
-            var time = date + ' ' + hour + ':' + minutes;
-            if (data._embedded.events[i].info) {
-                var eventInfo = data._embedded.events[i].info;
-            } else {
-                var eventInfo = "";
-            };
-            if (data._embedded.events[i].priceRanges) {
-                var priceLow = data._embedded.events[i].priceRanges[0].min;
-                var priceHigh = data._embedded.events[i].priceRanges[0].max;
-                if (priceLow === priceHigh) {
-                    var eventPrice = "$"+priceLow;
-                } else {
-                    var eventPrice = "$"+priceLow+"-"+priceHigh;
-                }
-            } else {
-                var eventPrice = "";
-            };
-
+        
             eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
             eventEl.setAttribute('data-id', id);
             eventEl.setAttribute('data-date', date);
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
-            eventEl.setAttribute('data-desc', eventInfo);
-            eventEl.setAttribute('data-price', eventPrice);
             eventEl.setAttribute('data-link', link);
-            eventEl.setAttribute('data-time', time);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
-            resultsContainer.style.height="400px";
-            resultsContainer.style.width="850px";
-            eventsList.appendChild(eventEl);
+            // eventCon.appendChild(listDiv);
+            // listDiv.style.height="400px"
+            // listDiv.style.width="850px"
+            // resultsContainer.style.height="400px";
+            // resultsContainer.style.width="900px";
+            // eventsList.appendChild(eventEl);
+
+            var today = dayjs().format('YYYY-MM-DD');
+            
             if (date == today){
                 currentEvents.appendChild(eventEl);
             } else if (date > today){
-                document.querySelector('#coming-soon-text').textContent = 'Coming Soon . . .'
                 futureEvents.appendChild(eventEl);
             }
         } 
@@ -152,51 +105,38 @@ function displayEvents(data) {
         messageEl = document.createElement('p');
         messageEl.textContent = 'Sorry, no events found';
         eventCon.appendChild(eventsList);
-        eventsList.appendChild(messageEl);
+        // eventsList.appendChild(messageEl);
     }
 }
 
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
-        var date = expanded.getAttribute('data-date');
-        var time = expanded.getAttribute('data-time');
-
-        if(date === today) {
-            for(i = 0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
-                forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
-                console.log(forecastHour);
-                if (time === forecastHour) {
-                    var condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
-                    var temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
-                    forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
-                    singleEvent.appendChild(forecastEl);
-                    console.log(date, today);
-                }
-                if (i === weatherArray.forecast.forecastday[0].hour.length) {
-                    forecastEl.textContent = '';
-                }
-            } 
-        } else { forecastEl.textContent = ''; }
-        
+        console.log(expanded);
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
-        eventPrice.textContent= expanded.getAttribute('data-price');
         singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
-        singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
-        if (expanded.getAttribute('data-desc')){
-            eventDesc.textContent = expanded.getAttribute('data-desc');     
-        } else {
-            eventDesc.textContent = "";
-        };
-        singleEvent.appendChild(eventDesc);
-        singleEvent.appendChild(eventPrice);
         singleEvent.appendChild(eventLink);
     }
 })
 
+function getWeather(search) {
+    var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
+    
+    fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            var sunset = data.forecast.forecastday[0].astro.sunset;
+            var eveningTemp = data.forecast.forecastday[0].hour[21].temp_f;
+            var eveningCondition = data.forecast.forecastday[0].hour[21].condition.text;
+            var eveningRainChance = data.forecast.forecastday[0].hour[21].chance_of_rain;
+            weatherCon.innerHTML = '<ul><h3>This evening:</h3><li>'+eveningCondition+'</li><li>Sunset: '+sunset+'</li><li>Temperature: '+eveningTemp+'°F</li><li>Chance of Rain: '+eveningRainChance+'%</li></ul>';
+        });
+}
