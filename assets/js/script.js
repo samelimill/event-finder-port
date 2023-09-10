@@ -3,21 +3,25 @@ var submitBtn = document.querySelector('#submit-button');
 var eventCon = document.querySelector('#event-container');
 var weatherCon = document.querySelector('#weather-container');
 var comingSoonText = document.querySelector('#coming-soon-text'); 
-// var listDiv = document.createElement('div');
-// listDiv.setAttribute('class', 'uk-panel-scrollable');
-
-var eventsList = document.createElement('ul');
 var currentEvents = document.querySelector('#current-events');
 var futureEvents = document.querySelector('#future-events');
+const resultsContainer = document.getElementById('results-container');
+
+var eventsList = document.createElement('ul');
+var backBtn = document.createElement('button');
+var forecastEl = document.createElement('p');
+var eventName = document.createElement('h2');
+var eventImg = document.createElement('img');
+var eventDesc = document.createElement('p');
+var eventPrice = document.createElement('p');
+var eventLink = document.createElement('a');
+
 currentEvents.setAttribute('class', 'uk-list uk-list-divider');
 futureEvents.setAttribute('class', 'uk-list uk-list-divider');
 
-const resultsContainer = document.getElementById('results-container');
-
-// listDiv.appendChild(currentEvents);
 
 
-var backBtn = document.createElement('button');
+
 backBtn.setAttribute('class', 'uk-modal-close-outside back-bttn');
 backBtn.textContent = 'Back to list';
 var modalDiv = document.querySelector('#modal-div');
@@ -28,14 +32,12 @@ singleEvent.setAttribute('class', 'single-event');
 
 
 var today = dayjs().format('YYYY-MM-DD');
-var forecastEl = document.createElement('p');
-var eventName = document.createElement('h2');
-var eventImg = document.createElement('img');
-var eventDesc = document.createElement('p');
-var eventPrice = document.createElement('p');
-var eventLink = document.createElement('a');
-//to-do: add classification input (concerts, sports, arts-theatre, family)
 
+
+eventPrice.setAttribute('class', 'card-price-text');
+eventDesc.setAttribute('class', 'event-desc-text');
+eventLink.setAttribute('class', 'card-link-text');
+forecastEl.setAttribute('class', 'card-forecast-text')
 
 submitBtn.addEventListener('click', function getInput(e) {
     e.preventDefault();
