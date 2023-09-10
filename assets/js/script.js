@@ -145,25 +145,32 @@ function displayEvents(data) {
 eventCon.addEventListener('click', function furtherDetails(e) {
     if(e.target.nodeName = 'li') {
         var expanded = e.target;
-        var condition;
-        var temp;
         var date = expanded.getAttribute('data-date');
         var time = expanded.getAttribute('data-time');
-        for(i=0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
-            var forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
-            if (date===today && time===forecastHour) {
-                condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
-                temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
-                forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
-            }
-        }
+
+        if(date === today) {
+            for(i = 0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
+                forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
+                console.log(forecastHour);
+                if (time === forecastHour) {
+                    var condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
+                    var temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
+                    forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
+                    singleEvent.appendChild(forecastEl);
+                    console.log(date, today);
+                }
+                if (i === weatherArray.forecast.forecastday[0].hour.length) {
+                    forecastEl.textContent = '';
+                }
+            } 
+        } else { forecastEl.textContent = ''; }
+        
         eventName.textContent = expanded.innerHTML;
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
         singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
-        singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
         singleEvent.appendChild(eventLink);
