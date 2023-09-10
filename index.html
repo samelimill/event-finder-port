@@ -37,12 +37,21 @@
         </div>
     </section>
 <!-- 1 column-->
-    <section class ="uk-width-1-1 event-results uk-panel-scrollable" id="results-container">
-        <div id="event-container">
-            <ul id="current-events"></ul>
-            <p id="coming-soon-text" class="uk-text-emphasis"></p>
-            <ul id="future-events"></ul>
-        </div>
+    <section id="results-container">
+        <ul uk-accordion="collapsible: false" class="event-results" id="event-container">
+            <li>
+                <a class="uk-accordion-title" href="#">Today's Events</a>
+                <div class="uk-accordion-content">
+                    <ul id="current-events"></ul>
+                </div>
+            </li>
+            <li>
+                <a class="uk-accordion-title" href="#">Upcoming Events</a>
+                <div class="uk-accordion-content uk-panel-scrollable">
+                    <ul id="future-events"></ul>
+                </div>
+            </li>
+        </ul>
     </section>
     <section>
         <div id="modal-div" uk-modal>
