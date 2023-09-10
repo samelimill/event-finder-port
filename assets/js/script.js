@@ -140,6 +140,11 @@ function displayEvents(data) {
                 currentEvents.appendChild(eventEl);
             } else if (date > today){
                 futureEvents.appendChild(eventEl);
+                if (currentEvents.childElementCount == 0) {
+                    var notToday = document.createElement('h2');
+                    notToday.textContent = "Sorry, no events today - click below to see what's coming soon!";
+                    currentEvents.appendChild(notToday);
+                }
             }
         } 
     } else { 
