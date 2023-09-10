@@ -27,5 +27,9 @@ This dynamic event search tool locates events in your vicinity and provides real
 
 [UIKit](https://getuikit.com/docs/introduction) 
 
+## Links
+[Github Page](https://samelimill.github.io/event-finder-port/) || 
+[Github Repo](https://github.com/samelimill/event-finder-port)
+
 
 
