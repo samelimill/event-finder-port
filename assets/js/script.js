@@ -12,7 +12,7 @@ var futureEvents = document.querySelector('#future-events');
 currentEvents.setAttribute('class', 'uk-list uk-list-divider');
 futureEvents.setAttribute('class', 'uk-list uk-list-divider');
 
-const resultsContainer = document.getElementById('results-container')
+const resultsContainer = document.getElementById('results-container');
 
 // listDiv.appendChild(currentEvents);
 
@@ -31,6 +31,8 @@ var today = dayjs().format('YYYY-MM-DD');
 var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
+var eventDesc = document.createElement('p');
+var eventPrice = document.createElement('p');
 var eventLink = document.createElement('a');
 //to-do: add classification input (concerts, sports, arts-theatre, family)
 
@@ -92,6 +94,7 @@ function getWeather(search) {
 }
 
 function displayEvents(data) {
+    console.log(data);
     resultsContainer.style.display = 'block';
     weatherCon.style.display = 'block';
     if(data.page.totalElements > 0) {
@@ -108,25 +111,36 @@ function displayEvents(data) {
             var image = data._embedded.events[i].images[2].url;
             var link = data._embedded.events[i].url;
             var time = date + ' ' + hour + ':' + minutes;
-            var weatherIcon = weatherArray;
+            if (data._embedded.events[i].info) {
+                var eventInfo = data._embedded.events[i].info;
+            } else {
+                var eventInfo = "";
+            };
+            if (data._embedded.events[i].priceRanges) {
+                var priceLow = data._embedded.events[i].priceRanges[0].min;
+                var priceHigh = data._embedded.events[i].priceRanges[0].max;
+                if (priceLow === priceHigh) {
+                    var eventPrice = "$"+priceLow;
+                } else {
+                    var eventPrice = "$"+priceLow+"-"+priceHigh;
+                }
+            } else {
+                var eventPrice = "";
+            };
 
             eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
             eventEl.setAttribute('data-id', id);
             eventEl.setAttribute('data-date', date);
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
+            eventEl.setAttribute('data-desc', eventInfo);
+            eventEl.setAttribute('data-price', eventPrice);
             eventEl.setAttribute('data-link', link);
             eventEl.setAttribute('data-time', time);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
-            // eventCon.appendChild(listDiv);
-            // listDiv.style.height="400px"
-            // listDiv.style.width="850px"
             resultsContainer.style.height="400px";
             resultsContainer.style.width="850px";
             eventsList.appendChild(eventEl);
-
-            
-            
             if (date == today){
                 currentEvents.appendChild(eventEl);
             } else if (date > today){
@@ -169,10 +183,19 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
+        eventPrice.textContent= expanded.getAttribute('data-price');
         singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
+        singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
+        if (expanded.getAttribute('data-desc')){
+            eventDesc.textContent = expanded.getAttribute('data-desc');     
+        } else {
+            eventDesc.textContent = "";
+        };
+        singleEvent.appendChild(eventDesc);
+        singleEvent.appendChild(eventPrice);
         singleEvent.appendChild(eventLink);
     }
 })
