@@ -12,7 +12,7 @@ var futureEvents = document.querySelector('#future-events');
 currentEvents.setAttribute('class', 'uk-list uk-list-divider');
 futureEvents.setAttribute('class', 'uk-list uk-list-divider');
 
-const resultsContainer = document.getElementById('results-container')
+const resultsContainer = document.getElementById('results-container');
 
 // listDiv.appendChild(currentEvents);
 
@@ -31,6 +31,8 @@ var today = dayjs().format('YYYY-MM-DD');
 var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
+var eventDesc = document.createElement('p');
+var eventPrice = document.createElement('p');
 var eventLink = document.createElement('a');
 //to-do: add classification input (concerts, sports, arts-theatre, family)
 
@@ -92,6 +94,7 @@ function getWeather(search) {
 }
 
 function displayEvents(data) {
+    console.log(data);
     resultsContainer.style.display = 'block';
     weatherCon.style.display = 'block';
     if(data.page.totalElements > 0) {
@@ -105,7 +108,7 @@ function displayEvents(data) {
             twelveHour = (hour % 12) || 12; //via medium.com
             var finalTime = twelveHour + ':' + minutes + AmOrPm;
             var id = data._embedded.events[i].id;
-            var image = data._embedded.events[i].images[2].url;
+            var image = data._embedded.events[i].images[0].url;
             var link = data._embedded.events[i].url;
             var time = date + ' ' + hour + ':' + minutes;
             var weatherIcon = weatherArray;
@@ -169,10 +172,19 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         eventImg.src = expanded.getAttribute('data-img');
         eventLink.href = expanded.getAttribute('data-link');
         eventLink.textContent = 'View on Ticketmaster';
+        eventPrice.textContent= expanded.getAttribute('data-price');
         singleDiv.appendChild(singleEvent);
         singleEvent.appendChild(backBtn);
+        singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
+        if (expanded.getAttribute('data-desc')){
+            eventDesc.textContent = expanded.getAttribute('data-desc');     
+        } else {
+            eventDesc.textContent = "";
+        };
+        singleEvent.appendChild(eventDesc);
+        singleEvent.appendChild(eventPrice);
         singleEvent.appendChild(eventLink);
     }
 })
