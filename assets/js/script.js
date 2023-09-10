@@ -110,7 +110,7 @@ function displayEvents(data) {
             twelveHour = (hour % 12) || 12; //via medium.com
             var finalTime = twelveHour + ':' + minutes + AmOrPm;
             var id = data._embedded.events[i].id;
-            var image = data._embedded.events[i].images[0].url;
+            var image = data._embedded.events[i].images[2].url;
             var link = data._embedded.events[i].url;
             var time = date + ' ' + hour + ':' + minutes;
             if (data._embedded.events[i].info) {
