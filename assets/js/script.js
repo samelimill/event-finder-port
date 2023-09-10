@@ -21,6 +21,7 @@ var singleEvent = document.createElement('ul');
 
 currentEvents.setAttribute('class', 'uk-list uk-list-divider');
 futureEvents.setAttribute('class', 'uk-list uk-list-divider');
+eventName.setAttribute('class', 'card-name-text');
 eventPrice.setAttribute('class', 'card-price-text');
 eventDesc.setAttribute('class', 'event-desc-text');
 eventLink.setAttribute('class', 'card-link-text');
