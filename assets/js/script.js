@@ -151,12 +151,16 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         if(date === today) {
             for(i = 0; i < weatherArray.forecast.forecastday[0].hour.length; i++) {
                 forecastHour = weatherArray.forecast.forecastday[0].hour[i].time;
+                console.log(forecastHour);
                 if (time === forecastHour) {
                     var condition = weatherArray.forecast.forecastday[0].hour[i].condition.text;
                     var temp = weatherArray.forecast.forecastday[0].hour[i].temp_f;
                     forecastEl.textContent = 'Forecast: ' + temp + '°F ' + condition;
                     singleEvent.appendChild(forecastEl);
                     console.log(date, today);
+                }
+                if (i === weatherArray.forecast.forecastday[0].hour.length) {
+                    forecastEl.textContent = '';
                 }
             } 
         } else { forecastEl.textContent = ''; }
