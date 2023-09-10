@@ -8,15 +8,24 @@ So I can be fully prepared and comfortable for the festivities.
 ```
 
 ## Description
-### This dynamic event search tool locates events in your vicinity and provides real-time weather updates. Our integrated APIs deliver this information to your screen as soon as you search based on your city and state. With an engaging design driven by seamless and robust CSS & JavaScript, we offer the convenience of knowing the weather conditions you should prepare for before heading to your next Punk Rock concert or baseball game.
+This dynamic event search tool locates events in your vicinity and provides real-time weather updates. Our integrated APIs deliver this information to your screen as soon as you search based on your desired city and state. With an engaging design driven by seamless and robust CSS & JavaScript, we offer the convenience of knowing the weather conditions you should prepare for before heading to your next Punk Rock concert or baseball game.
 
-### Webpage Display
-![Alt text](image-1.png)
+## Webpage Display
+![Screenshot of our working application](<assets/Images/App Screenshot.png>)
 
-
-## Citations
-### Background Image of Our Webpage: "https://wallpapercave.com/wp/wp2349475.jpg"
 ## API's Used
-### Weather API: "https://www.weatherapi.com"
-### Event API: "https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/"
-### CSS Framework: "https://getuikit.com/"
+![WeatherAPI logo](assets/Images/WeatherAPIlogo.webp) 
+<img src="assets/Images/ticketmaster.png" alt ="Ticketmaster logo" height="50px">  
+
+[WeatherAPI](https://www.weatherapi.com) || [Ticketmaster API](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/)
+
+
+## Credits
+[Background Image of Our Webpage](https://wallpapercave.com/wp/wp2349475.jpg)
+
+<img src="assets/Images/UIKit.png" alt="UIKit logo" height="50px">
+
+[UIKit](https://getuikit.com/docs/introduction) 
+
+
+
