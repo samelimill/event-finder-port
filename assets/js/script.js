@@ -111,25 +111,36 @@ function displayEvents(data) {
             var image = data._embedded.events[i].images[0].url;
             var link = data._embedded.events[i].url;
             var time = date + ' ' + hour + ':' + minutes;
-            var weatherIcon = weatherArray;
+            if (data._embedded.events[i].info) {
+                var eventInfo = data._embedded.events[i].info;
+            } else {
+                var eventInfo = "";
+            };
+            if (data._embedded.events[i].priceRanges) {
+                var priceLow = data._embedded.events[i].priceRanges[0].min;
+                var priceHigh = data._embedded.events[i].priceRanges[0].max;
+                if (priceLow === priceHigh) {
+                    var eventPrice = "$"+priceLow;
+                } else {
+                    var eventPrice = "$"+priceLow+"-"+priceHigh;
+                }
+            } else {
+                var eventPrice = "";
+            };
 
             eventEl.textContent = data._embedded.events[i].name + ' | ' + date + ' ' + finalTime;
             eventEl.setAttribute('data-id', id);
             eventEl.setAttribute('data-date', date);
             eventEl.setAttribute('data-time', finalTime);
             eventEl.setAttribute('data-img', image);
+            eventEl.setAttribute('data-desc', eventInfo);
+            eventEl.setAttribute('data-price', eventPrice);
             eventEl.setAttribute('data-link', link);
             eventEl.setAttribute('data-time', time);
             eventEl.setAttribute('uk-toggle', "target: #modal-div");
-            // eventCon.appendChild(listDiv);
-            // listDiv.style.height="400px"
-            // listDiv.style.width="850px"
             resultsContainer.style.height="400px";
             resultsContainer.style.width="850px";
             eventsList.appendChild(eventEl);
-
-            
-            
             if (date == today){
                 currentEvents.appendChild(eventEl);
             } else if (date > today){
