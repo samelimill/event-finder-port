@@ -28,8 +28,12 @@
     </header>
     <!-- 2 columns-->
     <section class="uk-grid" id="input-form-container">
-        <form class="uk-width-1-2 uk-search uk-card-search form-weather">
-            <input class="uk-input" id='search-input' type="search" placeholder="Portland, OR">
+        <form class="uk-grid uk-width-1-2 uk-search uk-card-search form-weather">
+            <input class="uk-input" id='search-input' type="search" placeholder="Please Enter a City and State (i.e. Portland, OR)">
+            <div class="uk-margin-auto">
+                <label class="uk-text-large uk-text-emphasis"><input id="music-choice" class="uk-radio uk-margin-left" type="radio" name="radioBtn" checked>Music</label>
+                <label class="uk-text-large uk-text-emphasis"><input id="sport-choice" class="uk-radio uk-margin-left" type="radio" name="radioBtn">Sports</label>
+            </div>
             <button class="uk-button uk-button-primary" id="submit-button">Search</button>
         </form>
         <div class="uk-width-1-2 uk-card-search form-weather" id="weather-container">
@@ -55,7 +59,10 @@
     </section>
     <section>
         <div id="modal-div" uk-modal>
-            <div id="single-div" class="uk-modal-dialog"></div>
+            <div id="single-div" class="uk-modal-dialog">
+                <h2 class="uk-modal-title"></h2>
+                <button class="uk-modal-close-outside back-bttn" type="button">Back to the List</button>
+            </div>
         </div>
     </section>
 

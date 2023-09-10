@@ -8,7 +8,6 @@ var futureEvents = document.querySelector('#future-events');
 const resultsContainer = document.getElementById('results-container');
 
 var eventsList = document.createElement('ul');
-var backBtn = document.createElement('button');
 var forecastEl = document.createElement('p');
 var eventName = document.createElement('h2');
 var eventImg = document.createElement('img');
@@ -19,16 +18,14 @@ var modalDiv = document.querySelector('#modal-div');
 var singleDiv = document.querySelector('#single-div');
 var singleEvent = document.createElement('ul');
 
+
 currentEvents.setAttribute('class', 'uk-list uk-list-divider');
 futureEvents.setAttribute('class', 'uk-list uk-list-divider');
-backBtn.setAttribute('class', 'uk-modal-close-outside back-bttn');
-eventName.setAttribute('class', 'card-name-text');
 eventPrice.setAttribute('class', 'card-price-text');
 eventDesc.setAttribute('class', 'event-desc-text');
 eventLink.setAttribute('class', 'card-link-text');
 forecastEl.setAttribute('class', 'card-forecast-text')
 singleEvent.setAttribute('class', 'single-event');
-backBtn.textContent = 'Back to list';
 
 var today = dayjs().format('YYYY-MM-DD');
 
@@ -37,6 +34,12 @@ submitBtn.addEventListener('click', function getInput(e) {
     eventsList.innerHTML = '';
     currentEvents.innerHTML = '';
     futureEvents.innerHTML = '';
+    var classChecked = document.querySelector( 'input[name="radioBtn"]:checked').getAttribute('id');
+    if (classChecked == 'music-choice') {
+        var classChoice = 'music';
+    } else if (classChecked == 'sport-choice') {
+        var classChoice = 'sports';
+    };
     var search = searchBar.value.toLowerCase();
     var state = search.substr(search.length-3, 3);
     var city = search.substr(0, search.length-4);
@@ -45,12 +48,12 @@ submitBtn.addEventListener('click', function getInput(e) {
         'state': state
     };
     searchHistory = localStorage.setItem('saveSearch', JSON.stringify(prevSearch));
-    getEvents(city, state);
+    getEvents(city, state, classChoice);
     getWeather(search);
 })
 
-function getEvents(city, state) {
-    var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=music&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
+function getEvents(city, state, classChoice) {
+    var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName='+classChoice+'&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
     .then(function(response) {
         if(city && state) {
@@ -70,7 +73,6 @@ var weatherArray = [];
 
 function getWeather(search) {
     var weatherAPIKey = '1306dd10117d4dc1aff35143230109';
-    
     fetch ('https://api.weatherapi.com/v1/forecast.json?key='+weatherAPIKey+'&q='+search+'&days=0')
         .then(function (response) {
             return response.json();
@@ -141,10 +143,7 @@ function displayEvents(data) {
             }
         } 
     } else { 
-        messageEl = document.createElement('p');
-        messageEl.textContent = 'Sorry, no events found';
-        eventCon.appendChild(eventsList);
-        eventsList.appendChild(messageEl);
+        currentEvents.textContent = 'Sorry, no events found';
     }
 }
 
@@ -176,7 +175,6 @@ eventCon.addEventListener('click', function furtherDetails(e) {
         eventLink.textContent = 'View on Ticketmaster';
         eventPrice.textContent= expanded.getAttribute('data-price');
         singleDiv.appendChild(singleEvent);
-        singleEvent.appendChild(backBtn);
         singleEvent.appendChild(forecastEl);
         singleEvent.appendChild(eventName);
         singleEvent.appendChild(eventImg);
