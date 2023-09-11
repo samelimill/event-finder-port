@@ -54,7 +54,7 @@ submitBtn.addEventListener('click', function getInput(e) {
 })
 
 function getEvents(city, state, classChoice) {
-    var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName='+classChoice+'&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
+    var ticketMaster = 'https://app.ticketmaster.com/discovery/v2/events.json?city=' + city + '&stateCode=' + state + '&classificationName=' + classChoice + '&sort=date,asc&apikey=hMHxReixSyCV55s9yGYRjwi8uBBo39wM';
     fetch(ticketMaster)
     .then(function(response) {
         if(city && state) {
@@ -137,9 +137,9 @@ function displayEvents(data) {
             resultsContainer.style.height="400px";
             resultsContainer.style.width="850px";
             eventsList.appendChild(eventEl);
-            if (date == today){
+            if (date === today){
                 currentEvents.appendChild(eventEl);
-            } else if (date > today){
+            } else {
                 futureEvents.appendChild(eventEl);
                 if (currentEvents.childElementCount == 0) {
                     var notToday = document.createElement('h2');
