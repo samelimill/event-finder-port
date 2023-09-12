@@ -27,6 +27,8 @@ This dynamic event search tool locates events in your vicinity and provides real
 
 [UIKit](https://getuikit.com/docs/introduction) 
 
+[Medium: Convert 24 hours format to 12 hours in Javascript](https://medium.com/front-end-weekly/how-to-convert-24-hours-format-to-12-hours-in-javascript-ca19dfd7419d#:~:text=Now%20in%2Dorder%20to%20convert,12%20on%20the%20current%20time.&text=time%20%3D%2024%2C%20then%2024%25,change%20the%20time%20as%2012.)
+
 ## Links
 [Github Page](https://samelimill.github.io/event-finder-port/) || 
 [Github Repo](https://github.com/samelimill/event-finder-port)
